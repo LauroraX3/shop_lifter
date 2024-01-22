@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:190010023895:android:06c721b7bfd21e66e23592',
     messagingSenderId: '190010023895',
     projectId: 'shop-lifter-5bba5',
+    databaseURL: 'https://shop-lifter-5bba5-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'shop-lifter-5bba5.appspot.com',
   );
 
@@ -62,6 +63,7 @@ class DefaultFirebaseOptions {
     appId: '1:190010023895:ios:4af8c499180a4e00e23592',
     messagingSenderId: '190010023895',
     projectId: 'shop-lifter-5bba5',
+    databaseURL: 'https://shop-lifter-5bba5-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'shop-lifter-5bba5.appspot.com',
     iosBundleId: 'com.example.shopLifter',
   );
