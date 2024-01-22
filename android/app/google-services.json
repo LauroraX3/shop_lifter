@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "190010023895",
+    "project_id": "shop-lifter-5bba5",
+    "storage_bucket": "shop-lifter-5bba5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190010023895:android:06c721b7bfd21e66e23592",
+        "android_client_info": {
+          "package_name": "com.example.shop_lifter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCbjCvQBXrvmOxKP3u_R-aKu5729qMJik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
