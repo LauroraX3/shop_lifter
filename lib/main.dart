@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shop_lifter/core/router/router.dart';
+import 'package:shop_lifter/styles/app_colors.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -9,7 +11,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(App());
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
@@ -17,7 +19,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -30,17 +32,17 @@ class App extends StatelessWidget {
         Locale('en'),
       ],
       locale: const Locale('pl'),
-      home: HomeScreen(),
-    );
-  }
-}
+      routerConfig: router,
+      theme: ThemeData(
+        useMaterial3: true,
 
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Text(AppLocalizations.of(context)!.welcome),
+        // Define the default brightness and colors.
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: AppColors.darkGreen,
+          // ···
+          brightness: Brightness.light,
+        ),
+      ),
     );
   }
 }
