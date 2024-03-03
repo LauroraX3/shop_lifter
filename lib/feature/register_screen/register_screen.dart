@@ -9,6 +9,7 @@ import 'package:shop_lifter/feature/register_screen/text_field.dart';
 import 'package:shop_lifter/styles/app_colors.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_lifter/utils/dialogs.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -79,81 +80,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return 'Hasła nie są zgodne';
     }
     return null;
-  }
-
-  void _showFailureAlert(String error) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Center(
-            child: SvgPicture.asset(
-              'assets/images/failure.svg',
-              width: 65,
-              height: 65,
-            ),
-          ),
-          content: Text(
-            error,
-            style: TextStyle(
-              fontSize: 20,
-              color: AppColors.red,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          actions: [
-            Container(
-              width: double.infinity,
-              child: CustomButton(
-                text: 'Zamknij',
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                color: AppColors.red,
-              ),
-            )
-          ],
-        );
-      },
-    );
-  }
-
-  Future<void> _showSuccessAlert() async {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Center(
-            child: SvgPicture.asset(
-              'assets/images/success.svg',
-              width: 65,
-              height: 65,
-            ),
-          ),
-          content: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              'Pomyślna rejestracja',
-              style: TextStyle(
-                fontSize: 22,
-                color: AppColors.darkGreen,
-              ),
-            ),
-          ),
-          actions: [
-            Container(
-              width: double.infinity,
-              child: CustomButton(
-                text: 'Zamknij',
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            )
-          ],
-        );
-      },
-    );
   }
 
   @override
@@ -291,22 +217,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             width: double.infinity,
                             child: CustomButton(
                               text: 'Zarejestruj się',
-                              onPressed:
-                                  context.read<RegisterNotifier>().isUserValid
-                                      ? () => context
-                                              .read<RegisterNotifier>()
-                                              .register()
-                                              .then(
-                                            (error) async {
-                                              if (error != null) {
-                                                _showFailureAlert(error);
-                                              } else {
-                                                await _showSuccessAlert();
-                                                context.pop();
-                                              }
-                                            },
-                                          )
-                                      : null,
+                              onPressed: context
+                                      .read<RegisterNotifier>()
+                                      .isUserValid
+                                  ? () => context
+                                          .read<RegisterNotifier>()
+                                          .register()
+                                          .then(
+                                        (error) async {
+                                          if (error != null) {
+                                            showFailureAlert(context, error);
+                                          } else {
+                                            await showSuccessAlert(context);
+                                            context.pop();
+                                          }
+                                        },
+                                      )
+                                  : null,
                             ),
                           );
                         },
