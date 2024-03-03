@@ -7,6 +7,8 @@ class Auth with AuthError {
   Auth._internal();
   static final Auth _singleton = Auth._internal();
   factory Auth() => _singleton;
+
+  bool get isUserSignIn => FirebaseAuth.instance.currentUser != null;
   Future<Either<AppError, UserCredential>> emailAndPasswordSignUp(
       String email, String password) async {
     try {
@@ -26,12 +28,26 @@ class Auth with AuthError {
     }
   }
 
-  Future<void> anonymousSignIn() async {
-    await FirebaseAuth.instance.signInAnonymously();
+  Future<Either<AppError, UserCredential>> anonymousSignIn() async {
+    try {
+      final user = await FirebaseAuth.instance.signInAnonymously();
+      return Right(user);
+    } catch (e) {
+      final error = e as FirebaseAuthException;
+
+      return Left(
+        AppError(
+          errorBody: error,
+          message: mapErrorCodeToMessage(error.code),
+        ),
+      );
+    }
   }
 
   Future<String?> emailAndPasswordSignIn(String email, String password) async {
     await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
   }
+
+  Future<void> signOut() async => FirebaseAuth.instance.signOut();
 }
