@@ -1,6 +1,8 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shop_lifter/core/auth/auth.dart';
 import 'package:shop_lifter/styles/app_colors.dart';
 import 'package:shop_lifter/widgets/app_bar.dart';
 import 'package:shop_lifter/widgets/tile.dart';
@@ -80,7 +82,11 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                final authService = Auth();
+                await authService.signOut();
+                context.pushReplacement('/');
+              },
               child: const Text('Wyloguj'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.darkGreen,
